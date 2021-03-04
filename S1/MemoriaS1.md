@@ -28,7 +28,7 @@ pila segment stack 'stack'
 	dw 100h dup (?)
 pila ends
 datos segment 'data'
-	msg db 'hola$'
+	msg db 'hola mundo$'
 datos ends
 codigo segment 'code'
 	assume cs:codigo, ds:datos, ss:pila
