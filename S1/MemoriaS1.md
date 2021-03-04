@@ -54,9 +54,9 @@ END main
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;El output es el siguiente:
 
-![3](https://github.com/jcpicco/pdih/blob/main/S1/capturas/2.png "holabucle.asm")
+![3](https://github.com/jcpicco/pdih/blob/main/S1/capturas/3.png "holabucle.asm")
 
 ## **3. Ejecutando DOOM con DOSBox**
 &nbsp;&nbsp;&nbsp;&nbsp;Sorprendentemente el juego DOOM corre perfectamente en DOSBox dentro de una máquina virtual. He ejecutado el comando *DOOM.BAT*, tras haber descargado de la web el propio juego y se ejecuta perfectamente. Me ha parecido muy interesante que el juego ocupe tan poco.
 
-![4](https://github.com/jcpicco/pdih/blob/main/S1/capturas/2.png "DOOM")
+![4](https://github.com/jcpicco/pdih/blob/main/S1/capturas/4.png "DOOM")
