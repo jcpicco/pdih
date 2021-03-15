@@ -87,4 +87,4 @@ unsigned char BGCOLOR = 0;
 
 ![8](https://github.com/jcpicco/pdih/blob/main/P1/capturas/8.png "8")
 
-![9](https://github.com/jcpicco/pdih/blob/main/P1/capturas/8.png "9")
+![9](https://github.com/jcpicco/pdih/blob/main/P1/capturas/9.png "9")
