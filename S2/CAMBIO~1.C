@@ -25,7 +25,7 @@ int main(){
 
 		mi_pausa();
 
-		printf("\Cambiando modo de video a 3h...  ");
+		printf("\nRevirtiendo modo de video a 3h...  ");
 
 		modovideo(3);
 

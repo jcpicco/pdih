@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "CAMBIO~1.C": "cpp",
+        "ESCRIB~1.C": "cpp",
+        "ENTRADA.C": "cpp",
+        "stdio.h": "c",
+        "P1.C": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}
