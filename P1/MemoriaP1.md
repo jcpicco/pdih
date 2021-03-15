@@ -46,17 +46,26 @@ unsigned char BGCOLOR = 0;
 9. **void clrscr():** Limpia la pantalla. Utilizo gotoxy() para situar el cursor al principio de la pantalla. El número de filas es de 25 siempre, pero el número de columnas es o 40 u 80. Esto lo soluciono con una condición que saca el modo de vídeo con getvideomode() y si el modo es 0 o 1 el tamaño es 40, y de lo contrario es 80. Usa la interrupción 0x10 en modo 0x06.
 
 10. **void cputchar(char c):** Escribe la letra que escojamos en la pantalla. El color de la letra está marcado por las funciones textcolor() y textbackground(). Usa la interrupción 0x10 en modo 0x09. Tiene los siguientes argumentos:
-   + **char c:** Es el carácter que se escribirá.
+      + **char c:** Es el carácter que se escribirá.
 
 11. **void getche():** Lee un carácter de teclado y lo muestra. El funcionamiento es simple. Se le pide una tecla al usuario (interrupción 0x21 modo 0x01), el usuario toca una tecla, y con la misma interrupción en modo 0x02 se imprime en pantalla el carácter leido desde teclado.
 
 12. **void draw(unsigned char bgc, unsigned char tc, int csi, int fsi, int cid, int fid):** Dibuja un recuadro en la pantalla en modo texto. Usa la interrupción 0x10 en modo 0x06. Si pones las coordenadas al revés, es decir, la inferior derecha encima de la superior izquierda, no habrá recuadro. Tiene los siguientes argumentos:
-   + **unsigned char bgc:** Indica el color del fondo del recuadro.
-   + **unsigned char tc:** Indica el color de primer plano dentro del recuadro.
-   + **int csi:** Coordenada X de la superior izquierda.
-   + **int fsi:** Coordenada Y de la superior izquierda.
-   + **int cid:** Coordenada X de la inferior derecha.
-   + **int fid:** Coordenada Y de la inferior derecha.
+      + **unsigned char bgc:** Indica el color del fondo del recuadro.
+      + **unsigned char tc:** Indica el color de primer plano dentro del recuadro.
+      + **int csi:** Coordenada X de la superior izquierda.
+      + **int fsi:** Coordenada Y de la superior izquierda.
+      + **int cid:** Coordenada X de la inferior derecha.
+      + **int fid:** Coordenada Y de la inferior derecha.
+
+13. **void modotexto():** Pone el modo de video a 3 (80x25). Llama a setvideomode().
+
+14. **void modografico():** Pone el modo de video a 4 (320x200). Llama a setvideomode().
+
+15. **void pixel(BYTE color, int x, int y):** Pone un pixel en una posición específica. Usa la interrupción 0x10 en modo 0x0C. Los parámetros son los siguientes:
+      + unsigned char color: Especifica el color del pixel.
+      + int x: Posición en el eje X del pixel.
+      + int y: Posición en el eje Y del pixel.
 
 ## **3. Pruebas de funcionamiento**
 
@@ -77,3 +86,5 @@ unsigned char BGCOLOR = 0;
 ![7](https://github.com/jcpicco/pdih/blob/main/P1/capturas/7.png "7")
 
 ![8](https://github.com/jcpicco/pdih/blob/main/P1/capturas/8.png "8")
+
+![9](https://github.com/jcpicco/pdih/blob/main/P1/capturas/8.png "9")

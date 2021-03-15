@@ -8,9 +8,16 @@
 #include <stdio.h>
 #include <dos.h>
 
-unsigned char TEXTCOLOR = 7;
-unsigned char BGCOLOR = 0;
+#define BYTE unsigned char
 
+BYTE TEXTCOLOR = 7;
+BYTE BGCOLOR = 0;
+
+/**
+ * @brief Realiza una pausa.
+ * 
+ *  La ejecución reanudará cuando pulsemos cualquier tecla.
+ */
 void mi_pausa(){
 	 union REGS inregs, outregs;
 
@@ -19,6 +26,12 @@ void mi_pausa(){
 	 int86(0x21, &inregs, &outregs);
 }
 
+/**
+ * @brief Cambia la posición del cursor.
+ * 
+ * @param fil Indica la fila en la que colocamos el cursor.
+ * @param col Indica la columna en la que colocamos el cursor.
+ */
 void gotoxy(int fil, int col){
 	union REGS inregs, outregs;
     
@@ -30,6 +43,13 @@ void gotoxy(int fil, int col){
 	int86(0x10, &inregs, &outregs);
 }
 
+/**
+ * @brief Cambia el tipo de cursor.
+ * 
+ * Cambia entre tres tipos de cursor: invisible, normal o grueso.
+ * 
+ * @param tipo_cursor Indica el tipo de cursor. Valores válidos: 0 (invisible), 1 (normal) o 2 (grueso).
+ */
 void setcursortype(int tipo_cursor){
 	union REGS inregs, outregs;
 
@@ -55,7 +75,13 @@ void setcursortype(int tipo_cursor){
 	int86(0x10, &inregs, &outregs);
 }
 
-void setvideomode(unsigned char modo){
+/**
+ * @brief Cambia el modo de video.
+ * 
+ * @param modo Cambia el modo de video. La tabla de modos se encuentra en el enlace adjunto.
+ * @see https://es.wikipedia.org/wiki/Int_10h
+ */
+void setvideomode(BYTE modo){
 	 union REGS inregs, outregs;
 
 	 inregs.h.al = modo;
@@ -64,6 +90,11 @@ void setvideomode(unsigned char modo){
 	 int86(0x10, &inregs, &outregs);
 }
 
+/**
+ * @brief Devuelve el modo de video actual.
+ * 
+ * @return Modo de video en formato int.
+ */
 int getvideomode(){
 	int caracter;
 	union REGS inregs, outregs;
@@ -77,19 +108,39 @@ int getvideomode(){
 	return caracter;
 }
 
+/**
+ * @brief Revierte a los colores por defecto para los caracteres.
+ */
 void revertcolor(){
 	TEXTCOLOR = 7;
 	BGCOLOR = 0;
 }
 
-void textcolor(unsigned char color){
+/**
+ * @brief Cambia el color de primer plano en el que se mostrarán los caracteres.
+ * 
+ * @param color Indica el color al que queremos cambiar. En el enlace adjunto está la lista de colores.
+ * @see https://en.wikipedia.org/wiki/BIOS_color_attributes
+ */
+void textcolor(BYTE color){
 	TEXTCOLOR = color;
 }
 
-void textbackground(unsigned char color){
+/**
+ * @brief Cambia el color de fondo en el que se mostrarán los caracteres.
+ * 
+ * @param color Indica el color al que queremos cambiar. En el enlace adjunto está la lista de colores.
+ * @see https://en.wikipedia.org/wiki/BIOS_color_attributes
+ */
+void textbackground(BYTE color){
 	BGCOLOR = color;
 }
 
+/**
+ * @brief Limpia la pantalla.
+ * 
+ * Utilizo gotoxy() para situar el cursor al principio de la pantalla.
+ */
 void clrscr(){
 	union REGS inregs, outregs;
 	int vm;
@@ -113,6 +164,13 @@ void clrscr(){
 	gotoxy(0,0);
 }
 
+/**
+ * @brief Escribe la letra que escojamos en la pantalla.
+ * 
+ * El color de la letra está marcado por las funciones textcolor() y textbackground().
+ * 
+ * @param c Es el carácter que se escribirá.
+ */
 void cputchar(char c){
 	union REGS inregs, outregs;
 
@@ -125,6 +183,13 @@ void cputchar(char c){
 	int86(0x10,&inregs,&outregs);
 }
 
+/**
+ * @brief Lee un carácter de teclado y lo muestra.
+ * 
+El funcionamiento es simple. Se le pide una tecla al usuario (interrupción 0x21 
+ * modo 0x01), el usuario toca una tecla, y con la misma interrupción en modo 0x02 
+ * se imprime en pantalla el carácter leido desde teclado. * 
+ */
 void getche(){
 	union REGS inregs, outregs;
     int c;
@@ -142,7 +207,19 @@ void getche(){
 	int86(0x21, &inregs, &outregs);
 }
 
-void draw(unsigned char bgc, unsigned char tc, int csi, int fsi, int cid, int fid){
+/**
+ * @brief Dibuja un recuadro en la pantalla en modo texto.
+ * 
+ * @param bgc Indica el color del fondo del recuadro.
+ * @param tc Indica el color de primer plano dentro del recuadro.
+ * @param csi Coordenada X de la superior izquierda.
+ * @param fsi Coordenada Y de la superior izquierda.
+ * @param cid Coordenada X de la inferior derecha.
+ * @param fid Coordenada Y de la inferior derecha.
+ * 
+ * @warning Si pones las coordenadas al revés, es decir, la inferior derecha encima de la superior izquierda, no habrá recuadro.
+ */
+void draw(BYTE bgc, BYTE tc, int csi, int fsi, int cid, int fid){
 	union REGS inregs, outregs;
 
 	inregs.h.al = 0;
@@ -155,9 +232,56 @@ void draw(unsigned char bgc, unsigned char tc, int csi, int fsi, int cid, int fi
 	int86(0x10, &inregs, &outregs);
 }
 
+/**
+ * @brief Pone el modo de video a 3 (80x25).
+ */
+void modotexto(){
+	setvideomode(3);
+}
+
+/**
+ * @brief Pone el modo de video a 4 (320x200).
+ */
+void modografico(){
+	setvideomode(4);
+}
+
+/**
+ * @brief Pone un pixel en una posición específica.
+ * 
+ * @param color Especifica el color del pixel.
+ * @param x Posición en el eje X del pixel.
+ * @param y Posición en el eje Y del pixel.
+ */
+void pixel(BYTE color, int x, int y){
+   union REGS inregs, outregs;
+
+   inregs.x.cx = x;
+   inregs.x.dx = y;
+   inregs.h.al = color;
+   inregs.h.ah = 0x0C;
+
+   int86(0x10, &inregs, &outregs);
+}
+
 int main(){
-	int tmp;
+	int tmp, i;
 	char c;
+
+	//Prueba modografico() y pixel()
+	clrscr();
+    printf("***********************");
+    printf("\nPrueba del modo gráfico");
+    printf("\n***********************");
+	mi_pausa();
+	modografico();
+
+   	for(i=0; i<100; i++){
+    	pixel(i,i, i%4 );
+   	}
+
+	mi_pausa();
+	modotexto();
 
     printf("***********************************");
     printf("\n¡Bienvenido al programa de pruebas!");
@@ -190,7 +314,7 @@ int main(){
 	tmp = getvideomode();
 	printf("Has entrado en el modo de video %i", tmp);
 	mi_pausa();
-	setvideomode(3);
+	modotexto();
 	tmp = getvideomode();
 	printf("Has entrado en el modo de video %i", tmp);
 	mi_pausa();

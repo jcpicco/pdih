@@ -9,8 +9,10 @@
 #include <dos.h>
 #include "funciones.h"
 
-unsigned char TEXTCOLOR = 7;
-unsigned char BGCOLOR = 0;
+#define BYTE unsigned char
+
+BYTE TEXTCOLOR = 7;
+BYTE BGCOLOR = 0;
 
 /**
  * @brief Realiza una pausa.
@@ -80,7 +82,7 @@ void setcursortype(int tipo_cursor){
  * @param modo Cambia el modo de video. La tabla de modos se encuentra en el enlace adjunto.
  * @see https://es.wikipedia.org/wiki/Int_10h
  */
-void setvideomode(unsigned char modo){
+void setvideomode(BYTE modo){
 	 union REGS inregs, outregs;
 
 	 inregs.h.al = modo;
@@ -121,7 +123,7 @@ void revertcolor(){
  * @param color Indica el color al que queremos cambiar. En el enlace adjunto está la lista de colores.
  * @see https://en.wikipedia.org/wiki/BIOS_color_attributes
  */
-void textcolor(unsigned char color){
+void textcolor(BYTE color){
 	TEXTCOLOR = color;
 }
 
@@ -131,7 +133,7 @@ void textcolor(unsigned char color){
  * @param color Indica el color al que queremos cambiar. En el enlace adjunto está la lista de colores.
  * @see https://en.wikipedia.org/wiki/BIOS_color_attributes
  */
-void textbackground(unsigned char color){
+void textbackground(BYTE color){
 	BGCOLOR = color;
 }
 
@@ -218,8 +220,7 @@ void getche(){
  * 
  * @warning Si pones las coordenadas al revés, es decir, la inferior derecha encima de la superior izquierda, no habrá recuadro.
  */
-
-void draw(unsigned char bgc, unsigned char tc, int csi, int fsi, int cid, int fid){
+void draw(BYTE bgc, BYTE tc, int csi, int fsi, int cid, int fid){
 	union REGS inregs, outregs;
 
 	inregs.h.al = 0;
@@ -230,4 +231,36 @@ void draw(unsigned char bgc, unsigned char tc, int csi, int fsi, int cid, int fi
 	inregs.h.dl = cid;
 	inregs.h.dh = fid;
 	int86(0x10, &inregs, &outregs);
+}
+
+/**
+ * @brief Pone el modo de video a 3 (80x25).
+ */
+void modotexto(){
+	setvideomode(3);
+}
+
+/**
+ * @brief Pone el modo de video a 4 (320x200).
+ */
+void modografico(){
+	setvideomode(4);
+}
+
+/**
+ * @brief Pone un pixel en una posición específica.
+ * 
+ * @param color Especifica el color del pixel.
+ * @param x Posición en el eje X del pixel.
+ * @param y Posición en el eje Y del pixel.
+ */
+void pixel(BYTE color, int x, int y){
+   union REGS inregs, outregs;
+
+   inregs.x.cx = x;
+   inregs.x.dx = y;
+   inregs.h.al = color;
+   inregs.h.ah = 0x0C;
+
+   int86(0x10, &inregs, &outregs);
 }

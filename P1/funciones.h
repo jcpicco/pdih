@@ -21,3 +21,9 @@ void cputchar(char c);
 void getche();
 
 void draw(unsigned char bgc, unsigned char tc, int csi, int fsi, int cid, int fid);
+
+void modotexto();
+
+void modografico();
+
+void pixel(unsigned char c, int x, int y);
