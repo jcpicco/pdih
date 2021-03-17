@@ -1,5 +1,5 @@
 /**
- * @file p1.c
+ * @file p1vga.c
  * @author Juan Manuel Consigliere Picco
  * @date 14/03/2021
  * @brief Archivo de pruebas de la biblioteca funciones.h
@@ -18,11 +18,11 @@ BYTE MODOGRAFICO = 4;
  *  La ejecución reanudará cuando pulsemos cualquier tecla.
  */
 void mi_pausa(){
-	 union REGS inregs, outregs;
+	union REGS inregs, outregs;
 
-	 inregs.h.ah = 8;
+	inregs.h.ah = 8;
 
-	 int86(0x21, &inregs, &outregs);
+	int86(0x21, &inregs, &outregs);
 }
 
 /**
@@ -41,11 +41,11 @@ void setvideomode(BYTE modo){
 /**
  * @brief Pone un pixel en una posición específica.
  * 
- * @param color Especifica el color del pixel.
  * @param x Posición en el eje X del pixel.
  * @param y Posición en el eje Y del pixel.
+ * @param color Especifica el color del pixel.
  */
-void pixel(BYTE color, int x, int y){
+void pixel(int x, int y, BYTE color){
    union REGS inregs, outregs;
    inregs.x.cx = x;
    inregs.x.dx = y;
@@ -55,16 +55,25 @@ void pixel(BYTE color, int x, int y){
 }
 
 int main(){
-	int i;
-	
-	setvideomode(MODOGRAFICO);
+   int i;
 
-   	for(i=0; i<100; i++){
-    	pixel(i,i, i%4 );
-   	}
+   setvideomode(MODOGRAFICO);
 
-	mi_pausa();
-	setvideomode(MODOTEXTO);
+   for(i=0; i<320; i++){
+      
+      pixel(i, 150, 0x0F );
+      pixel(i,100, 0x02 );
+      pixel(i,50, 0x0D );
+   }
+   
+   for(i=0; i<200; i++){
+      pixel(240, i, 0x0F );
+      pixel(160,i, 0x02 );
+      pixel(80, i, 0x0D );
+   }
+
+   mi_pausa();
+   setvideomode(MODOTEXTO);
 
 	return 0;
 }
