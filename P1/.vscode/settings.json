@@ -1,7 +1,10 @@
 {
     "files.associations": {
         "P1.C": "cpp",
-        "p1-funciones.h": "c"
+        "p1-funciones.h": "c",
+        "P1 copy.C": "cpp",
+        "P1GRAFICO.C": "cpp",
+        "P1GRAF~1.C": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

@@ -71,6 +71,8 @@ unsigned char BGCOLOR = 0;
 
 &nbsp;&nbsp;&nbsp;&nbsp; A continuación voy a poner capturas del test de funcionamiento:
 
++ **Ejecución de P1.C:**
+
 ![1](https://github.com/jcpicco/pdih/blob/main/P1/capturas/1.png "1")
 
 ![2](https://github.com/jcpicco/pdih/blob/main/P1/capturas/2.png "2")
@@ -86,5 +88,7 @@ unsigned char BGCOLOR = 0;
 ![7](https://github.com/jcpicco/pdih/blob/main/P1/capturas/7.png "7")
 
 ![8](https://github.com/jcpicco/pdih/blob/main/P1/capturas/8.png "8")
+
++ **Ejecución de P1VGA.C:**
 
 ![9](https://github.com/jcpicco/pdih/blob/main/P1/capturas/9.png "9")

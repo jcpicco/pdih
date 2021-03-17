@@ -239,50 +239,10 @@ void modotexto(){
 	setvideomode(3);
 }
 
-/**
- * @brief Pone el modo de video a 4 (320x200).
- */
-void modografico(){
-	setvideomode(4);
-}
-
-/**
- * @brief Pone un pixel en una posición específica.
- * 
- * @param color Especifica el color del pixel.
- * @param x Posición en el eje X del pixel.
- * @param y Posición en el eje Y del pixel.
- */
-void pixel(BYTE color, int x, int y){
-   union REGS inregs, outregs;
-
-   inregs.x.cx = x;
-   inregs.x.dx = y;
-   inregs.h.al = color;
-   inregs.h.ah = 0x0C;
-
-   int86(0x10, &inregs, &outregs);
-}
-
 int main(){
 	int tmp, i;
 	char c;
-
-	//Prueba modografico() y pixel()
-	clrscr();
-    printf("***********************");
-    printf("\nPrueba del modo gráfico");
-    printf("\n***********************");
-	mi_pausa();
-	modografico();
-
-   	for(i=0; i<100; i++){
-    	pixel(i,i, i%4 );
-   	}
-
-	mi_pausa();
-	modotexto();
-
+	
     printf("***********************************");
     printf("\n¡Bienvenido al programa de pruebas!");
     printf("\n***********************************\n");
