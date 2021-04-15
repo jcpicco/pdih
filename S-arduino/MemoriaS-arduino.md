@@ -40,7 +40,7 @@ void loop()
 
 &nbsp;&nbsp;&nbsp;&nbsp;Para ver su funcionamiento, en la carpeta S-arduino/pruebas puede encontrarlo con el nombre de *prueba-leds.mp4*. Puedes acceder al circuito haciendo [click aquí](https://www.tinkercad.com/things/75yZmUjsXVp-leds-alternos/).
 
-## **2. Pulsador LED**
+## **3. Pulsador LED**
 
 &nbsp;&nbsp;&nbsp;&nbsp;Este programa consiste en un led y un pulsador. Cuando clickas en el pulsador el led se enciende. El circuito es el siguiente:
 
@@ -74,7 +74,7 @@ void loop()
 
 &nbsp;&nbsp;&nbsp;&nbsp;Para ver su funcionamiento, en la carpeta S-arduino/pruebas puede encontrarlo con el nombre de *prueba-pulsador.mp4*. Puedes acceder al circuito haciendo [click aquí](https://www.tinkercad.com/things/5dgxOEw2qEL-led-pulsador).
 
-## **3. [EXTRA] Minijuego con Arduino**
+## **4. [EXTRA] Minijuego con Arduino**
 
 &nbsp;&nbsp;&nbsp;&nbsp;Este trabajo lo realicé para la asignatura de EC como trabajo voluntario. El minijuego consiste en una tira circular de leds por la cual pasa una luz una y otra vez. Nuestro objetivo es clickar el pulsador en el momento en que este pase por el principio. Si ganamos sonará una canción con el zumbador. El circuito es el siguiente:
 
