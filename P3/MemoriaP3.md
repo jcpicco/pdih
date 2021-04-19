@@ -173,7 +173,7 @@ void loop()
 
 &nbsp;&nbsp;&nbsp;&nbsp;Para ver su funcionamiento, en la carpeta P3/pruebas puede encontrarlo con el nombre de *prueba-coche-fantastico.mp4*. Puedes acceder al circuito haciendo [click aquí](https://www.tinkercad.com/things/dQeU45FUduh-coche-fantastico/).
 
-## **4. Sensor de movimiento**
+## **5. Sensor de movimiento**
 
 &nbsp;&nbsp;&nbsp;&nbsp;Este apartado consiste en un detector de movimiento con un sensor PIR. Cuando este detecta movimiento un led rojo enciende y en la consola aparece el mensaje "Sensor activado!". Cuando no hay más movimiento se apaga el led y deja de imprimirse el mensaje. El circuitom es este:
 
