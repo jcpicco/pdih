@@ -1,0 +1,1 @@
+cmd_/home/juan/Documentos/pdih/S-LKM/hello.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000  --build-id  -T ./scripts/module-common.lds -o /home/juan/Documentos/pdih/S-LKM/hello.ko /home/juan/Documentos/pdih/S-LKM/hello.o /home/juan/Documentos/pdih/S-LKM/hello.mod.o;  true
