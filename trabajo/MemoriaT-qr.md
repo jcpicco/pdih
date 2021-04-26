@@ -48,3 +48,5 @@
 &nbsp;&nbsp;&nbsp;&nbsp;Aquí vemos la interfaz. Tenemos dos casillas: en una ponemos el contenido del código QR, en la de abajo ponemos el nombre del archivo y luego inmediatamente tenemos el botón para escoger el directorio donde se va a guardar. Finalmente le das a "Crear QR", se crea y te muestra lo que ha creado.
 
 ![6](https://github.com/jcpicco/pdih/blob/main/trabajo/capturas/6.png "6")
+
+&nbsp;&nbsp;&nbsp;&nbsp;En la carpeta QRCreator de [GitHub](https://github.com/jcpicco/pdih/tree/main/trabajo/QRCreator) se encuentra tanto el archivo fuente como su ejecutable y dos códigos QR creados con el programa.
