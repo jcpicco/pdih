@@ -150,11 +150,11 @@ imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(this), new QRCodeImageAn
 
 &nbsp;&nbsp;&nbsp;&nbsp;Fuera de la función se inicia la preview virtual de la cámara para realizar pruebas. Aquí dejo unas capturas de la interfaz de la aplicación:
 
-![7](https://github.com/jcpicco/pdih/blob/main/trabajo/capturas/7.png "7")
+![7](https://github.com/jcpicco/pdih/blob/main/trabajo/capturas/7.jpg "7")
 
-![8](https://github.com/jcpicco/pdih/blob/main/trabajo/capturas/8.png "8")
+![8](https://github.com/jcpicco/pdih/blob/main/trabajo/capturas/8.jpg "8")
 
-![9](https://github.com/jcpicco/pdih/blob/main/trabajo/capturas/9.png "9")
+![9](https://github.com/jcpicco/pdih/blob/main/trabajo/capturas/9.jpg "9")
 
 &nbsp;&nbsp;&nbsp;&nbsp;En la carpeta QReader de [GitHub](https://github.com/jcpicco/pdih/tree/main/trabajo/QReader) se encuentra tanto el código completo como su archivo .apk para instalarlo.
 
