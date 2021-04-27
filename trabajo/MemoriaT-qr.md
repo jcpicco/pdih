@@ -50,3 +50,128 @@
 ![6](https://github.com/jcpicco/pdih/blob/main/trabajo/capturas/6.png "6")
 
 &nbsp;&nbsp;&nbsp;&nbsp;En la carpeta QRCreator de [GitHub](https://github.com/jcpicco/pdih/tree/main/trabajo/QRCreator) se encuentra tanto el archivo fuente como su ejecutable y dos códigos QR creados con el programa.
+
+## **5. App: QReader**
+
+&nbsp;&nbsp;&nbsp;&nbsp;Antes de comenzar la realización de esta práctica no había utilizado nunca Android Studio, por lo que para mí ha sido un trabajo doble: tener que aprender lo básico del programa y crear la app. He seguido el tutorial de [esta web](https://learntodroid.com/how-to-create-a-qr-code-scanner-app-in-android/) para llevar a cabo la realización del lector. Esto me ha servido también para familiarizarme con el entorno.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Para la app he usado las librerías CameraX y ZXing. He usado CameraX para crear una vista previa de la cámara en pantalla y ZXing sirve para crear el lector de códigos QR. Voy a pasar a explicar un poco el código y algunas funciones.
+
+&nbsp;&nbsp;&nbsp;&nbsp;La interfaz alojada en [*QRCodeFoundListener.java*](https://github.com/jcpicco/pdih/blob/main/trabajo/QReader/src/app/src/main/java/com/pdih/qreaderapp/QRCodeFoundListener.java) sirve para tratar los códigos QR en cuanto la cámara los detecta. Más adelante veremos la implementación.
+
+&nbsp;&nbsp;&nbsp;&nbsp;El archivo [*QRCodeImageAnalyzer.java*](https://github.com/jcpicco/pdih/blob/main/trabajo/QReader/src/app/src/main/java/com/pdih/qreaderapp/QRCodeImageAnalyzer.java), no lo voy a explicar mucho, ya que es la implementación del analizador de imágenes con la diferencia de que este usa la interfaz anteriormente usada.
+
+&nbsp;&nbsp;&nbsp;&nbsp;En el archivo [*MainActivity.java*](https://github.com/jcpicco/pdih/blob/main/trabajo/QReader/src/app/src/main/java/com/pdih/qreaderapp/MainActivity.java) hay varias funciones las cuales voy a explicar por encima.
+
+1. **void onCreate(Bundle savedInstanceState):** Esta función hace toda la inicialización de la función y la acción del único de los botones que tiene. Iremos viéndola punto por punto.
+
+```java
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        previewView = findViewById(R.id.activity_main_previewView);
+
+        qrCodeFoundButton = findViewById(R.id.activity_main_qrCodeFoundButton);
+        qrCodeFoundButton.setVisibility(View.INVISIBLE);
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Primero se carga la instancia última de la app y el diseño de la app. Luego con *previewView* inicializamos la vista previa de la cámara, y con *qrCodeFoundButton* incializamos el botón a invisible, ya que no contiene nada.
+
+```java
+    qrCodeFoundButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Log.i(MainActivity.class.getSimpleName(), "QR encontrado: " + qrCode);
+
+            if(qrCode.contains("https") || qrCode.contains("http")){
+                Intent buscadorWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(qrCode));
+                startActivity(buscadorWeb);
+            }
+            else{
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("QR",qrCode);
+                clipboard.setPrimaryClip(clip);
+
+                WebView webView = new WebView(getApplicationContext());
+                webView.setWebViewClient(new WebViewClient());
+
+                Toast.makeText(getApplicationContext(), qrCode+"\n"+"[COPIADO]", Toast.LENGTH_SHORT).show();
+            }
+        }    
+    });
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Se sobreescribe el funcionamiento del botón: en cuanto se pulse si el código QR contiene "http" o "https" se entiende que es un enlace y se redirige a la página web. En cambio si no contiene esas cadenas de texto se procede a mostrar una notificación Toast con el contenido, y este se copia al portapapeles.
+
+```java
+    cameraProviderFuture = ProcessCameraProvider.getInstance(this);
+    requestCamera();
+    }
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Finalmente se inicializa el proveedor de cámara que será CameraX, y se piden los permisos de la cámara en el dispositivo.
+
+2. **void requestCamera():** Función que simplemente pide los permisos necesarios para iniciar la cámara.
+
+3. **void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults):** Simplemente hace la acción de si se aceptan los permisos o no. Si se aceptan se inicia la cámara y si se denegan se muestra una notificación Toast avisando que los permisos se han denegado.
+
+4. **void startCamera():** Inicia la cámara del dispositivo.
+
+5. **void bindCameraPreview(@NonNull ProcessCameraProvider cameraProvider):** Inicia la Preview de la cámara. Requiere que la cámara se esté mostrando en la parte trasera y no en la delantera.
+
+```java
+imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(this), new QRCodeImageAnalyzer(new QRCodeFoundListener() {
+        @Override
+        public void onQRCodeFound(String _qrCode) {
+            qrCode = _qrCode;
+            qrCodeFoundButton.setVisibility(View.VISIBLE);
+            time = new Date().getTime();
+        }
+
+        @Override
+        public void qrCodeNotFound() {
+            time2 = new Date().getTime() - time;
+            if(time2 > 2000) {
+                qrCodeFoundButton.setVisibility(View.INVISIBLE);
+            }
+        }
+    }));
+
+    Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageAnalysis, preview);
+    }
+}
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Aquí se define la acción cuando encontramos un código QR y cuando no. Tuve un problema y es que el botón parpadeaba, así que le hice un pequeño arreglo para que eso no ocurra.
+
+&nbsp;&nbsp;&nbsp;&nbsp;La función *void onQRCodeFound(String _qrCode)* cuando encuentra un código QR el botón lo muestra y guarda el momento exacto de cuando se ha mostrado. En cuanto se deja de detectar public *void qrCodeNotFound()* comprueba que hayan pasado más de 3 segundos. Si han pasado el botón desaparece, y si aún no han pasado se mantiene.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Fuera de la función se inicia la preview virtual de la cámara para realizar pruebas. Aquí dejo unas capturas de la interfaz de la aplicación:
+
+![7](https://github.com/jcpicco/pdih/blob/main/trabajo/capturas/7.png "7")
+
+![8](https://github.com/jcpicco/pdih/blob/main/trabajo/capturas/8.png "8")
+
+![9](https://github.com/jcpicco/pdih/blob/main/trabajo/capturas/9.png "9")
+
+&nbsp;&nbsp;&nbsp;&nbsp;En la carpeta QReader de [GitHub](https://github.com/jcpicco/pdih/tree/main/trabajo/QReader) se encuentra tanto el código completo como su archivo .apk para instalarlo.
+
+## **6. Demostración**
+
+&nbsp;&nbsp;&nbsp;&nbsp;La demostración la he hecho en un vídeo, el cual puedes ver en YouTube clickando en [este enlace](https://www.youtube.com/watch?v=pyE2zsx358k), o en [GitHub](https://github.com/jcpicco/pdih/tree/main/trabajo/demo-creator-reader.mp4), ya que lo he subido allí también.
+
+## **7. Bibliografía**
+
+- https://es.wikipedia.org/wiki/C%C3%B3digo_QR
+- https://www.unitag.io/es/qrcode/what-is-a-qrcode
+- https://learntodroid.com/how-to-create-a-qr-code-scanner-app-in-android/
+- https://github.com/learntodroid/AndroidQRCodeScanner
+- https://www.nippon.com/es/news/fnn20191214001/
+- https://es.mobiletransaction.org/pago-con-codigo-qr-en-espana/
+- https://www.xataka.com/empresas-y-economia/asi-como-china-esta-dejando-obsoletas-a-tarjetas-credito-1
+- https://es.wikipedia.org/wiki/Denso_Corporation
+- https://pypi.org/project/qrcode/
+- https://docs.python.org/3/library/tkinter.html
+- https://likegeeks.com/es/ejemplos-de-la-gui-de-python/
