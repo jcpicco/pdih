@@ -1,0 +1,89 @@
+%!PS
+
+0 0.5 1 setrgbcolor % Color RGB
+0.1 setlinewidth    % Tamaño de línea 0.1
+
+newpath             % TEJADO
+
+200 500 moveto      % Origen en (200,500)
+100 100 rlineto     % Línea de (200,500) 100 derecha y 100 arriba
+100 -100 rlineto    % Línea de (300,600) 100 derecha y 100 abajo
+gsave               % Guarda último estado               
+0.7 setgray         % Color (0 negro - 1 blanco)
+fill                % Rellenar contenido
+grestore            % Restaura último estado
+closepath           % Cerramos el camino
+
+stroke
+
+newpath             % PARED
+
+210 410 moveto      % Origen en (210,410)
+180  0 rlineto      % Línea de (210,410) 180 derecha
+0 90 rlineto        % Línea de (390,410) 90 arriba
+-180  0 rlineto     % Línea de (390,500) 180 izquierda
+gsave               % Guarda último estado               
+0.7 setgray         % Color (0 negro - 1 blanco)
+fill                % Rellenar contenido
+grestore            % Restaura último estado
+closepath           % Cerramos el camino
+
+stroke
+
+newpath             % PUERTA
+
+290 410 moveto      % Origen en (290,410)
+20 0 rlineto        % Línea de (290,410) 20 derecha
+0 50 rlineto        % Línea de (310,410) 50 arriba
+-20 0 rlineto       % Línea de (310,460) 20 izquierda
+gsave               % Guarda último estado               
+0.7 setgray         % Color (0 negro - 1 blanco)
+fill                % Rellenar contenido
+grestore            % Restaura último estad
+closepath           % Cerramos el camino
+
+stroke
+
+newpath             % VENTANA IZQUIERDA
+
+220 460 moveto      % Origen en (220,460)
+35 0 rlineto        % Línea de (220,460) 35 derecha
+0 30 rlineto        % Línea de (255,460) 30 arriba
+-35 0 rlineto       % Línea de (255,490) 35 izquierda
+gsave               % Guarda último estado               
+0.7 setgray         % Color (0 negro - 1 blanco)
+fill                % Rellenar contenido
+grestore            % Restaura último estado
+closepath           % Cerramos el camino
+
+stroke
+
+newpath             % VENTANA DERECHA
+
+345 460 moveto      % Origen en (345,460)
+35 0 rlineto        % Línea de (345,460) 35 derecha
+0 30 rlineto        % Línea de (380,460) 30 arriba
+-35 0 rlineto       % Línea de (380,490) 35 izquierda
+gsave               % Guarda último estado               
+0.7 setgray         % Color (0 negro - 1 blanco)
+fill                % Rellenar contenido
+grestore            % Restaura último estado
+closepath           % Cerramos el camino
+
+stroke
+
+newpath			
+
+/Arial findfont	    % Buscar fuente Arial
+14 scalefont		% Tamaño de letra 14
+setfont			    % Aplicar fuente Arial
+190 430 moveto		% Origen en (345,460)
+gsave               % Guarda último estado
+0 setgray           % Color (0 negro - 1 blanco)
+90 rotate           % Rotación de origen 90º
+(Mi casita) show    % Texto "Mi casita"
+grestore            % Restaura último estado
+
+stroke
+
+showpage

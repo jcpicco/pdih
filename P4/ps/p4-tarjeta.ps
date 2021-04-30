@@ -1,0 +1,79 @@
+%!PS
+
+0.5 setlinewidth                    % Tamaño de línea 0.5
+
+newpath                             %BASE
+
+0.9 setgray                         % Color (0 negro - 1 blanco)
+210 410 moveto                      % Origen en (210,410)
+240  0 rlineto                      % Línea de (210,410) 240 derecha
+0 140 rlineto                       % Línea de (450,410) 140 arriba
+-240 0 rlineto                      % Línea de (450,500) 240 izquierda
+fill                                % Rellenar contenido
+closepath                           % Cerramos el camino
+
+stroke
+
+newpath                             %SOMBRA BASE
+
+0.8 setgray                         % Color (0 negro - 1 blanco)
+210 410 moveto                      % Origen en (210,410)
+240 0 rlineto                       % Línea de (210,410) 240 derecha
+0 140 rlineto                       % Línea de (450,410) 140 arriba
+
+stroke
+
+newpath                             %CIRCUNFERENCIA
+
+0.5 setgray                         % Color (0 negro - 1 blanco)
+270 480 30 0 360 arc                % Cirfunferencia en (270,480) de radio 30
+gsave                               % Guarda último estado 
+0.8 setgray                         % Color gris claro
+fill                                % Rellenar contenido          
+grestore                            % Restaura último estado
+
+stroke
+
+newpath                             %TEXTO PRINCIPAL
+
+0 setgray                           % Color (0 negro - 1 blanco)
+/Arial findfont	                    % Buscar fuente Arial
+10 scalefont                        % Tamaño de letra 10
+setfont			                    % Aplicar fuente Arial
+355 495 moveto                      % Origen en (355,485)
+(Drago Kovacevic) show              % Texto "Drago Kovacevic"
+
+stroke
+
+0.5 setgray                         %Color (0 negro - 1 blanco)
+
+newpath                             %TEXTO 
+
+/Arial findfont	                    % Buscar fuente Arial
+8 scalefont                         % Tamaño de letra 8
+setfont			                    % Aplicar fuente Arial
+357 485 moveto                      % Origen en (357,485)
+(Ejecutivo de cuentas) show         % Texto "Ejecutivo de cuentas"
+
+stroke
+
+/Arial findfont	                    % Buscar fuente Arial
+7 scalefont                         % Tamaño de letra 8
+setfont			                    % Aplicar fuente Arial
+
+newpath
+
+355 465 moveto                      % Origen en (355,465)
+(Pº de la Casetllana, 141) show     % Texto "Pº de la Casetllana, 141"
+352 455 moveto                      % Origen en (352,455)
+(Local 2- Edificio Cuzco IV) show   % Local 2- Edificio Cuzco IV"
+389 445 moveto                      % Origen en (389,445)
+(28046 Madrid) show                 % Texto "28046 Madrid"
+343 435 moveto                      % Origen en (343,435)
+(Tlf 914 174 550/669 896 224) show  % Tlf 914 174 550/669 896 224"
+376 425 moveto                      % Origen en (376,425)
+(drago@serotel.es) show             % drago@serotel.es"
+
+stroke
+
+showpage
